@@ -39,13 +39,13 @@ export default function PlatformPage() {
   const differentiators = [
     {
       title: "Enterprise Scalability",
-      icon: <Zap className="h-5 w-5 text-amber-600" />,
+      icon: <Zap className="h-7 w-7 text-amber-500" />,
       bgColor: "bg-amber-50",
       description: "Built on an enterprise-grade architecture capable of handling tens of thousands of concurrent users seamlessly.",
     },
     {
       title: "Military-Grade Security",
-      icon: <ShieldCheck className="h-5 w-5 text-rose-600" />,
+      icon: <ShieldCheck className="h-7 w-7 text-rose-500" />,
       bgColor: "bg-rose-50",
       description: "Advanced encryption ensuring sensitive workforce data remains strictly confidential and compliant with global privacy standards.",
     },
@@ -79,7 +79,7 @@ export default function PlatformPage() {
   ];
 
   return (
-    <div className="bg-white dark:bg-slate-950 min-h-screen pb-24">
+    <div className="bg-white dark:bg-slate-950 min-h-screen">
       {/* Clean Enterprise Hero with Photography */}
       <div className="pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
@@ -100,11 +100,17 @@ export default function PlatformPage() {
       </div>
 
       {/* Structured Modules Grid with Colorful Touches */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        {/* Ambient Side Glows for Glassmorphism */}
+        <div className="absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 w-[600px] h-[600px] bg-blue-400/30 blur-[120px] z-0 rounded-full pointer-events-none"></div>
+        <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 w-[600px] h-[600px] bg-emerald-400/30 blur-[120px] z-0 rounded-full pointer-events-none"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[120%] max-w-4xl bg-gradient-to-r from-blue-300/20 via-purple-300/20 to-emerald-300/20 blur-[100px] z-0 rounded-full pointer-events-none"></div>
+
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {coreModules.map((mod) => (
-            <div key={mod.title} className={`bg-white dark:bg-slate-950 p-8 md:p-10 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-300 ${mod.borderColor} group`}>
-              <div className={`h-14 w-14 rounded-xl ${mod.bgColor} dark:bg-slate-900 flex items-center justify-center mb-6 border border-slate-100 dark:border-slate-800 group-hover:scale-110 transition-transform`}>
+            <div key={mod.title} className={`relative bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-8 md:p-10 rounded-3xl border border-white/60 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-2 group`}>
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div className={`h-16 w-16 rounded-2xl ${mod.bgColor} dark:bg-slate-900 flex items-center justify-center mb-8 border border-white/80 dark:border-slate-800 shadow-sm group-hover:scale-110 transition-transform duration-500`}>
                 {mod.icon}
               </div>
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">{mod.title}</h3>
@@ -328,8 +334,8 @@ export default function PlatformPage() {
         </div>
       </div>
 
-      {/* Complete Capabilities Grid */}
-      <div className="bg-slate-50 dark:bg-slate-900/50 py-24 border-y border-slate-200 dark:border-slate-800">
+      {/* Complete Capabilities - Hover Grid Showcase */}
+      <div className="bg-slate-50 dark:bg-slate-900/50 pt-24 pb-16 border-t border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-4 border border-emerald-200 dark:border-emerald-400/30">
@@ -337,56 +343,72 @@ export default function PlatformPage() {
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight text-slate-900 dark:text-white">The Ultimate Platform Library</h2>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-              ENFYCON is not just an attendance app. It is a massive, enterprise-grade operating system for your entire workforce. Explore the incredible depth of our modules below.
+              Emplinked is not just an attendance app. It is a massive, enterprise-grade operating system for your entire workforce. Explore the incredible depth of our modules below.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {fullCapabilities.map((cap) => (
-              <div key={cap.title} className="bg-white dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/50 p-6 hover:shadow-md dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="h-10 w-10 bg-slate-50 dark:bg-slate-900 rounded-lg flex items-center justify-center shadow-inner border border-slate-100 dark:border-slate-700/50">
-                    {cap.icon}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+            {fullCapabilities.map((cap, index) => {
+              const gradients = [
+                "from-blue-600 to-indigo-800",
+                "from-emerald-600 to-teal-800",
+                "from-purple-600 to-violet-800",
+                "from-amber-500 to-orange-700",
+                "from-rose-600 to-red-800",
+                "from-sky-500 to-blue-700",
+                "from-pink-600 to-rose-800",
+                "from-cyan-600 to-teal-700",
+                "from-indigo-500 to-purple-700",
+                "from-orange-500 to-red-600",
+                "from-violet-500 to-fuchsia-700",
+                "from-teal-500 to-emerald-700",
+                "from-fuchsia-600 to-pink-800",
+                "from-blue-500 to-cyan-700",
+                "from-slate-700 to-slate-900"
+              ];
+              const bgGradient = gradients[index % gradients.length];
+              
+              return (
+                <div 
+                  key={cap.title} 
+                  className={`group relative rounded-[2rem] border border-white/10 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col bg-gradient-to-br ${bgGradient}`}
+                >
+                  {/* Image Header with Color Blend */}
+                  <div className="h-32 w-full relative flex-shrink-0 bg-slate-900">
+                    <img 
+                      src={`https://picsum.photos/seed/emplinked${index}/400/200`} 
+                      alt={cap.title}
+                      className="w-full h-full object-cover mix-blend-overlay opacity-60 group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-4 left-6 flex items-center gap-3">
+                      <div className="h-10 w-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/30">
+                        {React.cloneElement(cap.icon as React.ReactElement<{ className?: string }>, { 
+                          className: "h-5 w-5 text-white" 
+                        })}
+                      </div>
+                      <h3 className="text-lg font-bold text-white tracking-tight leading-tight max-w-[200px]">{cap.title}</h3>
+                    </div>
                   </div>
-                  <h3 className="font-bold text-lg text-slate-900 dark:text-white">{cap.title}</h3>
+
+                  {/* Content List always visible */}
+                  <div className="p-6 flex-grow">
+                    <ul className="space-y-3">
+                      {cap.items.map((item, idx) => (
+                        <li key={idx} className="text-sm text-white/95 flex items-start gap-3">
+                          <div className="mt-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-white/20 flex-shrink-0">
+                            <CheckCircle className="h-2.5 w-2.5 text-white" />
+                          </div>
+                          <span className="font-medium leading-snug">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                <ul className="space-y-2">
-                  {cap.items.map((item, idx) => (
-                    <li key={idx} className="text-sm text-slate-600 dark:text-slate-400 flex items-start gap-2">
-                      <div className="mt-1.5 h-1.5 w-1.5 bg-blue-500 dark:bg-slate-500 rounded-full flex-shrink-0"></div>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
-      </div>
-
-
-
-      {/* Differentiators Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 md:p-12">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 tracking-tight">Why Emplinked?</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {differentiators.map((diff) => (
-              <div key={diff.title} className="flex gap-4 group">
-                <div className={`h-12 w-12 flex-shrink-0 rounded-xl ${diff.bgColor} dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 group-hover:scale-110 transition-transform`}>
-                  {diff.icon}
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">{diff.title}</h4>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{diff.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+      </div>    </div>
   );
 }

@@ -175,23 +175,23 @@ function FeatureShowcase() {
     <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
       
       {/* Left Sidebar Menu */}
-      <div className="lg:col-span-4 lg:sticky lg:top-24 flex flex-col gap-2">
+      <div className="lg:col-span-4 lg:sticky lg:top-24 flex lg:flex-col overflow-x-auto lg:overflow-visible gap-3 pb-4 lg:pb-0 hide-scrollbar snap-x relative z-20">
         {benefitsData.map((b, idx) => (
           <button
             key={b.title}
             onClick={() => handleTabClick(idx)}
-            className={`w-full text-left px-5 py-4 rounded-2xl flex items-center gap-4 transition-all duration-300 border ${
+            className={`text-left px-4 md:px-5 py-3 md:py-4 rounded-xl md:rounded-2xl flex items-center gap-3 md:gap-4 transition-all duration-300 border flex-shrink-0 snap-start w-64 md:w-auto ${
               active === idx
                 ? "bg-slate-800 border-slate-700 shadow-sm"
-                : "bg-transparent border-transparent hover:bg-slate-900 hover:border-slate-800"
+                : "bg-transparent border-slate-800/50 hover:bg-slate-900 hover:border-slate-800"
             }`}
           >
-            <div className={`p-2 rounded-xl transition-colors ${active === idx ? "bg-slate-950 shadow-sm" : "bg-slate-800"}`}>
+            <div className={`p-2 rounded-xl transition-colors flex-shrink-0 ${active === idx ? "bg-slate-950 shadow-sm" : "bg-slate-800"}`}>
               {React.cloneElement(b.icon as React.ReactElement<{ className?: string }>, {
                 className: `h-5 w-5 ${active === idx ? "text-blue-400" : "text-slate-400"}`
               })}
             </div>
-            <h4 className={`font-bold transition-colors ${active === idx ? "text-white" : "text-slate-400"}`}>
+            <h4 className={`font-bold transition-colors whitespace-normal leading-tight text-sm md:text-base ${active === idx ? "text-white" : "text-slate-400"}`}>
               {b.title}
             </h4>
           </button>
@@ -317,9 +317,9 @@ export default function Home() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-2xl mb-16 space-y-4">
-            <h2 className="text-xs font-bold text-blue-500 uppercase tracking-widest">Why Emplinked</h2>
+            <h2 className="text-xs font-bold text-blue-500 uppercase tracking-widest">Our Advantage</h2>
             <h3 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">
-              More than workforce software.
+              Why Emplinked?
             </h3>
             <p className="text-base text-slate-400 leading-relaxed max-w-xl">
               It is the operational backbone that connects people, processes, and business intelligence into one secure ecosystem.

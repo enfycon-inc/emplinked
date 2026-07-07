@@ -1,10 +1,58 @@
 "use client";
 
-import React from "react";
-import { MessageSquare, PhoneCall, MapPin, ArrowRight } from "lucide-react";
+import React, { useState } from "react";
+import { MessageSquare, PhoneCall, MapPin, ArrowRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PhoneInput } from "@/components/ui/phone-input";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 export default function ContactPage() {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [turnstileToken, setTurnstileToken] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!turnstileToken) {
+      setErrorMessage("Please complete the security check.");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("loading");
+    setErrorMessage("");
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      fullName: formData.get("fullName"),
+      email: formData.get("email"),
+      company: formData.get("company"),
+      phone: (formData.get("phoneCode") as string || "") + " " + (formData.get("phone") as string || ""),
+      message: formData.get("message"),
+      turnstileToken,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      
+      const result = await res.json();
+      
+      if (res.ok) {
+        setStatus("success");
+        (e.target as HTMLFormElement).reset();
+      } else {
+        setStatus("error");
+        setErrorMessage(result.error || "Failed to send inquiry.");
+      }
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage("An unexpected error occurred.");
+    }
+  };
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-24">
       
@@ -35,8 +83,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900 dark:text-white mb-1 tracking-tight">Sales & Solutions</h3>
-                  <a href="mailto:solutions@emplinked.com" className="text-blue-700 dark:text-blue-400 font-semibold text-sm hover:underline flex items-center gap-1">
-                    solutions@emplinked.com
+                  <a href="mailto:office@enfycon.com" className="text-blue-700 dark:text-blue-400 font-semibold text-sm hover:underline flex items-center gap-1">
+                    office@enfycon.com
                   </a>
                 </div>
               </div>
@@ -50,9 +98,14 @@ export default function ContactPage() {
                 <div>
                   <h4 className="text-base font-semibold text-slate-900 dark:text-white mb-1 tracking-tight">Technical Support</h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm mb-3">24/7 dedicated support for platform issues.</p>
-                  <a href="tel:+918049333600" className="text-blue-700 dark:text-blue-400 font-semibold text-sm hover:underline flex items-center gap-1">
-                    +91 80 4933 3600
-                  </a>
+                  <div className="space-y-1.5">
+                    <a href="tel:+12012017078" className="text-blue-700 dark:text-blue-400 font-semibold text-sm hover:underline flex items-center gap-2">
+                      <span className="text-slate-500 font-normal text-xs uppercase tracking-wider">Global</span> +1 201-201-7078
+                    </a>
+                    <a href="tel:+916743513070" className="text-blue-700 dark:text-blue-400 font-semibold text-sm hover:underline flex items-center gap-2">
+                      <span className="text-slate-500 font-normal text-xs uppercase tracking-wider">India</span> +91 674 351 3070
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -65,9 +118,25 @@ export default function ContactPage() {
                 <div>
                   <h4 className="text-base font-semibold text-slate-900 dark:text-white mb-1 tracking-tight">Headquarters</h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                    EnfyCon Technologies Pvt. Ltd.<br />
-                    Global Tech Park, Block C<br />
-                    Bangalore, India 560103
+                    Enfycon<br />
+                    3921 Long Prairie Road, Building 5<br />
+                    Flower Mound, TX 75028, USA
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+              <div className="flex gap-4">
+                <div className="h-10 w-10 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-shrink-0 items-center justify-center">
+                  <MapPin className="h-5 w-5 text-slate-700 dark:text-slate-300" />
+                </div>
+                <div>
+                  <h4 className="text-base font-semibold text-slate-900 dark:text-white mb-1 tracking-tight">Regional Office (India)</h4>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                    Enfycon<br />
+                    N4/345, Block N4, IRC Village<br />
+                    Bhubaneswar, Odisha 751015, India
                   </p>
                 </div>
               </div>
@@ -78,12 +147,25 @@ export default function ContactPage() {
           <div className="lg:col-span-3">
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm">
               
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                {status === "success" && (
+                  <div className="p-4 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-sm font-medium border border-emerald-200 dark:border-emerald-500/20">
+                    Thank you! Your inquiry has been sent successfully. We will get back to you shortly.
+                  </div>
+                )}
+                {status === "error" && (
+                  <div className="p-4 rounded-lg bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-400 text-sm font-medium border border-red-200 dark:border-red-500/20">
+                    {errorMessage}
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Full Name</label>
                     <input 
                       type="text" 
+                      name="fullName"
+                      required
                       placeholder="Jane Doe" 
                       className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 focus:ring-1 focus:ring-blue-700 focus:border-blue-700 transition-all outline-none text-sm text-slate-900 dark:text-white placeholder:text-slate-400"
                     />
@@ -92,32 +174,61 @@ export default function ContactPage() {
                     <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Work Email</label>
                     <input 
                       type="email" 
+                      name="email"
+                      required
                       placeholder="jane@company.com" 
                       className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 focus:ring-1 focus:ring-blue-700 focus:border-blue-700 transition-all outline-none text-sm text-slate-900 dark:text-white placeholder:text-slate-400"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Company Name</label>
-                  <input 
-                    type="text" 
-                    placeholder="Acme Corp" 
-                    className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 focus:ring-1 focus:ring-blue-700 focus:border-blue-700 transition-all outline-none text-sm text-slate-900 dark:text-white placeholder:text-slate-400"
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Company Name</label>
+                    <input 
+                      type="text" 
+                      name="company"
+                      placeholder="Acme Corp" 
+                      className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 focus:ring-1 focus:ring-blue-700 focus:border-blue-700 transition-all outline-none text-sm text-slate-900 dark:text-white placeholder:text-slate-400"
+                    />
+                  </div>
+                  <div className="space-y-2 relative z-50">
+                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Phone Number</label>
+                    <PhoneInput name="phone" />
+                  </div>
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">How can we help?</label>
                   <textarea 
                     rows={4} 
+                    name="message"
+                    required
                     placeholder="Describe your workforce requirements..." 
                     className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 focus:ring-1 focus:ring-blue-700 focus:border-blue-700 transition-all outline-none resize-none text-sm text-slate-900 dark:text-white placeholder:text-slate-400"
                   />
                 </div>
 
-                <Button className="w-full h-12 text-sm rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold">
-                  Submit Inquiry
+                <div className="flex justify-center py-2">
+                  <Turnstile 
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""} 
+                    onSuccess={(token) => setTurnstileToken(token)}
+                  />
+                </div>
+
+                <Button 
+                  disabled={status === "loading"}
+                  type="submit"
+                  className="w-full h-12 text-sm rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-semibold flex items-center justify-center"
+                >
+                  {status === "loading" ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Sending Inquiry...
+                    </>
+                  ) : (
+                    "Submit Inquiry"
+                  )}
                 </Button>
                 
                 <p className="text-xs text-center text-slate-500 dark:text-slate-400 pt-2">
