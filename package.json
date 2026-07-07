@@ -9,11 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@azure/msal-node": "^5.3.1",
     "@marsidev/react-turnstile": "^1.5.3",
-    "@microsoft/microsoft-graph-client": "^3.0.7",
     "countries-list": "^3.3.0",
-    "isomorphic-fetch": "^3.0.0",
     "lucide-react": "^0.469.0",
     "next": "16.2.9",
     "next-themes": "^0.4.6",

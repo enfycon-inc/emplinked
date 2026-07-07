@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getGraphClient } from "@/lib/graphClient";
+import { sendEmailViaGraph } from "@/lib/graphClient";
 
 export const runtime = 'edge';
 
@@ -39,9 +39,8 @@ export async function POST(request: Request) {
     }));
 
     // 3. Send Email via Microsoft Graph API
-    const client = await getGraphClient();
-    const sender = process.env.AZURE_USER_ID;
-
+    const sender = process.env.AZURE_USER_ID || "";
+    
     const mailMessage = {
       message: {
         subject: `New Enterprise Inquiry from ${fullName}`,
@@ -63,7 +62,7 @@ export async function POST(request: Request) {
       saveToSentItems: "false",
     };
 
-    await client.api(`/users/${sender}/sendMail`).post(mailMessage);
+    await sendEmailViaGraph(sender, mailMessage);
 
     return NextResponse.json({ success: true, message: "Inquiry sent successfully" });
   } catch (error: any) {

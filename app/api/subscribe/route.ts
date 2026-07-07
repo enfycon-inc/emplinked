@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getGraphClient } from "@/lib/graphClient";
+import { sendEmailViaGraph } from "@/lib/graphClient";
 
 export const runtime = 'edge';
 
@@ -29,8 +29,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Valid email is required" }, { status: 400 });
     }
 
-    const client = await getGraphClient();
-    const sender = process.env.AZURE_USER_ID;
+    const sender = process.env.AZURE_USER_ID || "";
 
     // 2. Formulate Welcome Email to the Subscriber
     const welcomeMailMessage = {
@@ -84,8 +83,8 @@ export async function POST(request: Request) {
 
     // Send both emails concurrently
     await Promise.all([
-      client.api(`/users/${sender}/sendMail`).post(welcomeMailMessage),
-      client.api(`/users/${sender}/sendMail`).post(adminMailMessage)
+      sendEmailViaGraph(sender, welcomeMailMessage),
+      sendEmailViaGraph(sender, adminMailMessage)
     ]);
 
     return NextResponse.json({ success: true, message: "Subscription successful" });
