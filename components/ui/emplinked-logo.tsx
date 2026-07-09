@@ -8,40 +8,35 @@ export const EmplinkedLogo: React.FC<EmplinkedLogoProps> = ({ className = "w-ful
   return (
     <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
       <defs>
-        <linearGradient id="app-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="cube-left" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#2563EB" /> {/* Blue 600 */}
           <stop offset="100%" stopColor="#4F46E5" /> {/* Indigo 600 */}
         </linearGradient>
-        <linearGradient id="app-grad-glass" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.0" />
+        <linearGradient id="cube-right" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#10B981" /> {/* Emerald 500 */}
+          <stop offset="100%" stopColor="#059669" /> {/* Emerald 600 */}
         </linearGradient>
-        <filter id="app-shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="8" stdDeviation="8" floodColor="#3B82F6" floodOpacity="0.3" />
-        </filter>
+        <linearGradient id="cube-top" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#38BDF8" /> {/* Sky 400 */}
+          <stop offset="100%" stopColor="#2563EB" /> {/* Blue 600 */}
+        </linearGradient>
       </defs>
 
-      {/* App Icon Base */}
-      <rect x="5" y="5" width="90" height="90" rx="25" fill="url(#app-grad)" filter="url(#app-shadow)" />
+      {/* Top Face */}
+      <path d="M50 10 L90 32.5 L50 55 L10 32.5 Z" fill="url(#cube-top)" />
       
-      {/* Glassy Overlay for 3D App Icon feel */}
-      <rect x="5" y="5" width="90" height="90" rx="25" fill="url(#app-grad-glass)" />
+      {/* Left Face */}
+      <path d="M10 32.5 L50 55 L50 95 L10 72.5 Z" fill="url(#cube-left)" />
+      
+      {/* Right Face */}
+      <path d="M90 32.5 L50 55 L50 95 L90 72.5 Z" fill="url(#cube-right)" />
 
-      {/* Ultra-Clean Modern "E" */}
-      <path 
-        d="M 65 30 L 40 30 C 34.477 30 30 34.477 30 40 L 30 60 C 30 65.523 34.477 70 40 70 L 65 70" 
-        stroke="white" 
-        strokeWidth="10" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-      />
-      <path 
-        d="M 30 50 L 55 50" 
-        stroke="white" 
-        strokeWidth="10" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-      />
+      {/* Glossy Overlay for Premium Feel */}
+      <path d="M50 10 L90 32.5 L50 55 L10 32.5 Z" fill="#ffffff" fillOpacity="0.2" />
+      <path d="M10 32.5 L50 55 L50 75 L10 52.5 Z" fill="#ffffff" fillOpacity="0.1" />
+      
+      {/* Central Core Connection Node */}
+      <circle cx="50" cy="55" r="8" fill="#ffffff" />
     </svg>
   );
 };

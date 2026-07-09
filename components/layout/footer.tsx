@@ -51,13 +51,17 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-8 pb-12">
           {/* Brand Info */}
           <div className="md:col-span-2 flex flex-col space-y-5">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="h-8 w-8 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 drop-shadow-md">
-                <EmplinkedLogo className="w-full h-full" />
+            {/* Minimalist Premium Wordmark */}
+            <Link href="/" className="flex items-center group">
+              <div className="flex items-center tracking-tighter">
+                <span className="text-[22px] font-semibold text-slate-900 dark:text-white transition-colors duration-300">
+                  Emp
+                </span>
+                <span className="text-[22px] font-black bg-gradient-to-r from-orange-500 to-violet-600 bg-clip-text text-transparent filter drop-shadow-sm">
+                  linked
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 ml-1 mb-2.5 group-hover:scale-150 transition-transform duration-300 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
               </div>
-              <span className="text-base font-bold tracking-tight text-slate-900">
-                Emplinked
-              </span>
             </Link>
             <p className="text-slate-600 text-xs sm:text-sm max-w-xs leading-relaxed">
               Emplinked is an intelligent workforce operating platform developed by EnfyCon, empowering organizations with automation, workforce intelligence, enterprise-grade security, and data-driven decision making.

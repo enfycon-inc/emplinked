@@ -39,14 +39,17 @@ export const Header: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Premium Scalable Vector Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="h-9 w-9 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 drop-shadow-md">
-            <EmplinkedLogo className="w-full h-full" />
+        {/* Minimalist Premium Wordmark */}
+        <Link href="/" className="flex items-center group">
+          <div className="flex items-center tracking-tighter">
+            <span className={`text-[26px] font-semibold transition-colors duration-300 ${isDarkHero && !scrolled ? "text-white" : "text-slate-900 dark:text-white"}`}>
+              Emp
+            </span>
+            <span className="text-[26px] font-black bg-gradient-to-r from-orange-500 to-violet-600 bg-clip-text text-transparent filter drop-shadow-sm">
+              linked
+            </span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 ml-1 mb-3 group-hover:scale-150 transition-transform duration-300 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
           </div>
-          <span className={`text-2xl font-black tracking-tighter transition-colors duration-300 ${isDarkHero && !scrolled ? "text-white" : "text-slate-900 dark:text-white"}`}>
-            Emplinked
-          </span>
         </Link>
 
         {/* Desktop Nav */}
