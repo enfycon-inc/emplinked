@@ -16,10 +16,7 @@ export function LogoMarquee({ items }: LogoMarqueeProps) {
   const doubleItems = [...items, ...items];
 
   return (
-    <div className="relative w-full overflow-hidden py-4 select-none">
-      {/* Soft gradient masks on both sides for premium look */}
-      <div className="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-slate-50 dark:from-slate-900 to-transparent z-10 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-slate-50 dark:from-slate-900 to-transparent z-10 pointer-events-none" />
+    <div className="relative w-full overflow-hidden py-4 select-none [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
 
       {/* Marquee Inner Scroll Container */}
       <div className="animate-marquee whitespace-nowrap flex gap-4 items-center">

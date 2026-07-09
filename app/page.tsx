@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { LogoMarquee } from "@/components/ui/logo-marquee";
 import { HeroMockupDisplay } from "@/components/ui/hero-mockups";
 import { FeatureMockupDisplay } from "@/components/ui/feature-mockups";
+import { CylinderCarousel } from "@/components/ui/cylinder-carousel";
 
 const heroSlides: { label: string; type: "analytics" | "mobile" | "payroll" | "scheduling" }[] = [
   {
@@ -72,8 +73,8 @@ function HeroCarousel() {
     <div className="flex flex-col gap-4 w-full max-w-2xl mx-auto lg:max-w-none relative z-10">
       <div className="absolute -inset-4 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-[2rem] blur-xl opacity-60 -z-10" />
       
-      <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/10 dark:shadow-blue-900/40 bg-white dark:bg-slate-900/50 border border-gray-100 dark:border-slate-800/80 backdrop-blur-sm">
-        <div style={{ transition: "opacity 0.25s ease", opacity: fading ? 0 : 1 }} className="bg-gray-50 dark:bg-slate-800/30 aspect-[16/10] relative p-0 overflow-hidden">
+      <div className="rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] bg-white/60 dark:bg-slate-900/60 border border-white/60 dark:border-slate-700/50 backdrop-blur-2xl">
+        <div style={{ transition: "opacity 0.25s ease", opacity: fading ? 0 : 1 }} className="bg-white/40 dark:bg-slate-800/30 aspect-[16/10] relative p-0 overflow-hidden">
           <div className="absolute inset-0 w-full h-full p-2">
             <HeroMockupDisplay type={heroSlides[current].type} />
           </div>
@@ -145,95 +146,54 @@ const benefitsData = [
 ];
 
 function FeatureShowcase() {
-  const [active, setActive] = useState(0);
-  const [fading, setFading] = useState(false);
-  
-  const currentBenefit = benefitsData[active] || benefitsData[0];
-
-  // Auto-rotate tabs
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFading(true);
-      setTimeout(() => {
-        setActive((prev) => (prev + 1) % benefitsData.length);
-        setFading(false);
-      }, 200);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const handleTabClick = (index: number) => {
-    if (index === active || fading) return;
-    setFading(true);
-    setTimeout(() => {
-      setActive(index);
-      setFading(false);
-    }, 200);
-  };
+  // Triple the items to ensure a perfectly seamless infinite scroll loop
+  const marqueeItems = [...benefitsData, ...benefitsData, ...benefitsData];
 
   return (
-    <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+    <div className="w-full relative overflow-hidden group py-4">
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-100% / 3)); }
+        }
+        .animate-marquee {
+          animation: marquee 45s linear infinite;
+          width: max-content;
+        }
+        .group:hover .animate-marquee {
+          animation-play-state: paused;
+        }
+      `}} />
       
-      {/* Left Sidebar Menu */}
-      <div className="lg:col-span-4 lg:sticky lg:top-24 flex lg:flex-col overflow-x-auto lg:overflow-visible gap-3 pb-4 lg:pb-0 hide-scrollbar snap-x relative z-20">
-        {benefitsData.map((b, idx) => (
-          <button
-            key={b.title}
-            onClick={() => handleTabClick(idx)}
-            className={`text-left px-4 md:px-5 py-3 md:py-4 rounded-xl md:rounded-2xl flex items-center gap-3 md:gap-4 transition-all duration-300 border flex-shrink-0 snap-start w-64 md:w-auto ${
-              active === idx
-                ? "bg-slate-800 border-slate-700 shadow-sm"
-                : "bg-transparent border-slate-800/50 hover:bg-slate-900 hover:border-slate-800"
-            }`}
+      {/* Scrollable Container */}
+      <div className="animate-marquee flex gap-6 lg:gap-8 px-4">
+        {marqueeItems.map((b, idx) => (
+          <div 
+            key={`${b.id}-${idx}`} 
+            className="flex-none w-[280px] sm:w-[320px] flex flex-col items-center cursor-pointer transition-transform duration-500 hover:-translate-y-2"
           >
-            <div className={`p-2 rounded-xl transition-colors flex-shrink-0 ${active === idx ? "bg-slate-950 shadow-sm" : "bg-slate-800"}`}>
-              {React.cloneElement(b.icon as React.ReactElement<{ className?: string }>, {
-                className: `h-5 w-5 ${active === idx ? "text-blue-400" : "text-slate-400"}`
-              })}
+            {/* Header/Title exactly like Mobbin (Clean Text) */}
+            <div className="text-center mb-6 h-12 flex items-center justify-center">
+              <h4 className="font-bold text-gray-900 dark:text-slate-200 transition-colors duration-300 text-[1.1rem]">
+                {b.title}
+              </h4>
             </div>
-            <h4 className={`font-bold transition-colors whitespace-normal leading-tight text-sm md:text-base ${active === idx ? "text-white" : "text-slate-400"}`}>
-              {b.title}
-            </h4>
-          </button>
+
+            {/* Completely transparent container with NO box styling */}
+            <div className={`relative flex flex-col h-[580px] w-full transition-all duration-500`}>
+              {/* Full-bleed graphic/mockup inside the card */}
+              <div className="absolute inset-0 w-full h-full">
+                <div className="absolute inset-0 w-full h-full scale-[1.02] transition-transform duration-700 ease-out hover:scale-100">
+                  <FeatureMockupDisplay type={b.id as any} />
+                </div>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
-
-      {/* Right Presentation Window */}
-      <div className="lg:col-span-8 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 min-h-[500px] flex flex-col">
-        {/* Photo Area */}
-        <div className="relative h-64 sm:h-80 overflow-hidden bg-slate-900 p-0">
-          <div style={{ transition: "opacity 0.2s ease", opacity: fading ? 0 : 1 }} className="absolute inset-0 w-full h-full">
-            <FeatureMockupDisplay type={currentBenefit.id as any} />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none z-20" />
-        </div>
-
-        {/* Content Area */}
-        <div 
-          className={`flex-grow p-10 lg:p-12 transition-colors duration-300 ${currentBenefit.color}`}
-        >
-          <div style={{ transition: "opacity 0.2s ease, transform 0.2s ease", opacity: fading ? 0 : 1, transform: fading ? "translateY(10px)" : "translateY(0)" }}>
-            <div className="inline-flex items-center gap-2 bg-slate-950/50 backdrop-blur-md px-3 py-1 rounded-full text-sm font-bold mb-6 text-slate-200 shadow-sm border border-slate-800/50">
-              {React.cloneElement(currentBenefit.icon as React.ReactElement<{ className?: string }>, { className: "h-4 w-4" })}
-              {currentBenefit.title}
-            </div>
-            <h3 className="text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight tracking-tight">
-              {currentBenefit.title}
-            </h3>
-            <p className="text-lg text-slate-300 font-medium leading-relaxed max-w-2xl mb-8">
-              {currentBenefit.desc}
-            </p>
-            <Button variant="primary" className="shadow-sm shadow-blue-700/20">
-              See it in action <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </div>
-
     </div>
   );
 }
-
 
 export default function Home() {
   const partnerLogos = [
@@ -249,10 +209,13 @@ export default function Home() {
     <div className="bg-white dark:bg-slate-950 text-gray-900 dark:text-white selection:bg-blue-100 dark:selection:bg-blue-900/50 selection:text-blue-900 dark:selection:text-blue-100 transition-colors duration-300">
 
       {/* ── HERO ── */}
-      <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20 overflow-hidden bg-gradient-to-b from-blue-50/80 dark:from-slate-900 to-white dark:to-slate-950">
-        <div className="absolute top-20 right-0 w-[600px] h-[600px] bg-blue-100/40 dark:bg-blue-900/20 rounded-full blur-[100px] -z-10 translate-x-1/3" />
+      <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20 overflow-hidden bg-white dark:bg-slate-950">
+        {/* Responsive Ambient Background Glows */}
+        <div className="absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-400/30 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-emerald-400/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[120%] max-w-4xl bg-gradient-to-r from-blue-300/20 via-purple-300/20 to-emerald-300/20 blur-[60px] md:blur-[100px] z-0 rounded-full pointer-events-none" />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
             {/* Left */}
             <div className="space-y-6 max-w-2xl">
@@ -312,27 +275,33 @@ export default function Home() {
       </section>
 
       {/* ── WHY EMPLINKED CAROUSEL ── */}
-      <section className="py-24 bg-slate-950 border-b border-slate-900 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-900/20 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2" />
-        
+      <section className="py-24 bg-slate-50/50 dark:bg-slate-900/50 relative overflow-hidden">
+        {/* Responsive Vibrant Ambient Glow behind 3D Carousel */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[600px] md:w-[1000px] md:h-[800px] bg-indigo-400/20 dark:bg-indigo-600/20 rounded-full blur-[80px] md:blur-[120px] pointer-events-none z-0" />
+        <div className="absolute bottom-0 right-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-purple-400/20 dark:bg-purple-600/20 rounded-full blur-[80px] md:blur-[120px] pointer-events-none z-0" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-2xl mb-16 space-y-4">
-            <h2 className="text-xs font-bold text-blue-500 uppercase tracking-widest">Our Advantage</h2>
-            <h3 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">
+          <div className="max-w-2xl mb-16 space-y-4 mx-auto text-center">
+            <h2 className="text-xs font-bold text-blue-600 dark:text-blue-500 uppercase tracking-widest">Our Advantage</h2>
+            <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
               Why Emplinked?
             </h3>
-            <p className="text-base text-slate-400 leading-relaxed max-w-xl">
-              It is the operational backbone that connects people, processes, and business intelligence into one secure ecosystem.
-            </p>
           </div>
-          
-          <FeatureShowcase />
+        </div>
+        
+        {/* Full-bleed edge-to-edge 3D carousel */}
+        <div className="w-full relative z-20">
+          <CylinderCarousel items={benefitsData} />
         </div>
       </section>
 
       {/* ── SIDE BY SIDE: Mobile App ── */}
-      <section className="py-20 bg-slate-50 dark:bg-slate-900/50 border-b border-gray-100 dark:border-slate-800 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-slate-50/50 dark:bg-slate-900/50 border-b border-gray-100 dark:border-slate-800 relative overflow-hidden">
+        {/* Responsive Ambient Glows for Mobile App Section */}
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-[80px] md:blur-[120px] pointer-events-none z-0" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-emerald-300/20 dark:bg-emerald-600/20 rounded-full blur-[80px] md:blur-[120px] pointer-events-none z-0" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl lg:rotate-3 lg:hover:rotate-0 transition-transform duration-500 border border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900">
@@ -357,27 +326,36 @@ export default function Home() {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
-                <div>
-                  <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                    <Users className="h-4 w-4 text-blue-600" /> Employees can:
-                  </h4>
-                  <ul className="space-y-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                {/* Employee Card */}
+                <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-5 rounded-2xl border border-white/60 dark:border-slate-700/50 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="h-8 w-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
+                      <Users className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <h4 className="font-bold text-sm text-gray-900 dark:text-white">Employees can:</h4>
+                  </div>
+                  <ul className="space-y-2.5">
                     {["Mark Attendance", "GPS Check-in", "Face Authentication", "Apply Leave", "View Payslips", "Submit Expenses"].map((item) => (
                       <li key={item} className="flex items-center gap-2 text-xs font-medium text-gray-600 dark:text-gray-300">
-                        <Check className="h-3.5 w-3.5 text-green-500" /> {item}
+                        <CheckCircle className="h-3.5 w-3.5 text-blue-500" /> {item}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div>
-                  <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                    <ShieldCheck className="h-4 w-4 text-indigo-600" /> Managers can:
-                  </h4>
-                  <ul className="space-y-2">
+                
+                {/* Manager Card */}
+                <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-5 rounded-2xl border border-white/60 dark:border-slate-700/50 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="h-8 w-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center">
+                      <ShieldCheck className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                    </div>
+                    <h4 className="font-bold text-sm text-gray-900 dark:text-white">Managers can:</h4>
+                  </div>
+                  <ul className="space-y-2.5">
                     {["Approve Requests", "Monitor Teams", "Review Attendance", "Track Field Employees", "View Reports"].map((item) => (
                       <li key={item} className="flex items-center gap-2 text-xs font-medium text-gray-600 dark:text-gray-300">
-                        <Check className="h-3.5 w-3.5 text-green-500" /> {item}
+                        <CheckCircle className="h-3.5 w-3.5 text-indigo-500" /> {item}
                       </li>
                     ))}
                   </ul>

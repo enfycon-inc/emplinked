@@ -47,7 +47,11 @@ export default function PrivacyPolicyPage() {
   };
 
   return (
-    <div className="bg-slate-50 dark:bg-slate-950 min-h-screen">
+    <div className="bg-white dark:bg-slate-950 min-h-screen relative overflow-hidden">
+      {/* Responsive Ambient Background Glows */}
+      <div className="absolute top-1/4 left-0 -translate-x-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-400/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+      <div className="absolute top-2/4 right-0 translate-x-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-emerald-400/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-full h-[600px] max-w-4xl bg-gradient-to-r from-blue-300/10 via-purple-300/10 to-emerald-300/10 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
       {/* ── HERO BANNER ── */}
       <div className="bg-slate-900 pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
@@ -71,7 +75,7 @@ export default function PrivacyPolicyPage() {
           
           {/* Sticky Sidebar Navigation */}
           <div className="lg:w-1/4 hidden lg:block">
-            <div className="sticky top-32 bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200/80 dark:border-slate-800">
+            <div className="sticky top-32 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-6 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-white/60 dark:border-slate-700/50">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-6">Table of Contents</h4>
               <nav className="space-y-1">
                 {sections.map((section) => {
@@ -97,7 +101,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Content Area */}
-          <div className="lg:w-3/4 max-w-3xl">
+          <div className="lg:w-3/4 max-w-3xl relative z-10">
             <div className="space-y-16 text-slate-600 dark:text-slate-300 leading-relaxed text-base sm:text-lg">
               
               <section id="introduction" className="scroll-mt-32">
@@ -134,15 +138,15 @@ export default function PrivacyPolicyPage() {
                   Personal Information gathered through the Service consists of details provided voluntarily by a Customer or End User. This may include:
                 </p>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                  <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-5 rounded-xl border border-white/60 dark:border-slate-700/50 shadow-sm">
                     <h3 className="font-bold text-slate-900 dark:text-white mb-2">Identity & Contact</h3>
                     <p className="text-sm">Name, birthdate, gender, nationality, phone numbers, addresses, and emergency contacts.</p>
                   </div>
-                  <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                  <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-5 rounded-xl border border-white/60 dark:border-slate-700/50 shadow-sm">
                     <h3 className="font-bold text-slate-900 dark:text-white mb-2">Employment Details</h3>
                     <p className="text-sm">Employee ID, job title, department, hire date, termination date, and right-to-work credentials.</p>
                   </div>
-                  <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm sm:col-span-2">
+                  <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-5 rounded-xl border border-white/60 dark:border-slate-700/50 shadow-sm sm:col-span-2">
                     <h3 className="font-bold text-slate-900 dark:text-white mb-2">Financial Data</h3>
                     <p className="text-sm">Bank account details, base salary, gross salary, overtime, bonuses, and tax codes.</p>
                   </div>
@@ -203,7 +207,7 @@ export default function PrivacyPolicyPage() {
                 <p className="mb-6">
                   We implement industry-standard organizational and technical measures (including AES-256 encryption at rest and TLS in transit) to protect Personal Information.
                 </p>
-                <div className="bg-slate-100 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-6 rounded-xl border border-white/60 dark:border-slate-700/50 shadow-sm">
                   <h4 className="font-bold text-slate-900 dark:text-white mb-2">Retention Policy</h4>
                   <p className="text-sm">
                     Upon termination of a Customer's contract, or upon a verified request from the Data Controller, we will securely delete or anonymize all associated End User data within 90 days, except where legally required to retain it (e.g. tax records).
@@ -223,7 +227,7 @@ export default function PrivacyPolicyPage() {
                 </p>
               </section>
 
-              <section id="contact" className="scroll-mt-32 bg-blue-50 dark:bg-slate-900 rounded-3xl p-8 sm:p-12 border border-blue-100 dark:border-slate-800 text-center">
+              <section id="contact" className="scroll-mt-32 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl rounded-3xl p-8 sm:p-12 border border-white/60 dark:border-slate-700/50 text-center shadow-sm">
                 <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6">
                   <Mail className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                 </div>

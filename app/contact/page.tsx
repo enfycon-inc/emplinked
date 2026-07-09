@@ -54,7 +54,12 @@ export default function ContactPage() {
     }
   };
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-24">
+    <div className="min-h-screen bg-white dark:bg-slate-950 pb-24 relative overflow-hidden">
+      
+      {/* Responsive Ambient Background Glows */}
+      <div className="absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-400/30 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 right-0 translate-x-1/4 -translate-y-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-emerald-400/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[600px] max-w-4xl bg-gradient-to-r from-blue-300/20 via-purple-300/20 to-emerald-300/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
       
       {/* Full Bleed Hero Section */}
       <div className="relative pt-32 pb-24 overflow-hidden mb-12">
@@ -76,7 +81,7 @@ export default function ContactPage() {
           {/* Left Column: Clean Contact Cards */}
           <div className="lg:col-span-2 space-y-4">
             
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 rounded-2xl p-6 shadow-sm">
               <div className="flex gap-4">
                 <div className="h-10 w-10 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-shrink-0 items-center justify-center">
                   <MessageSquare className="h-5 w-5 text-slate-700 dark:text-slate-300" />
@@ -90,7 +95,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 rounded-2xl p-6 shadow-sm">
               <div className="flex gap-4">
                 <div className="h-10 w-10 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-shrink-0 items-center justify-center">
                   <PhoneCall className="h-5 w-5 text-slate-700 dark:text-slate-300" />
@@ -110,7 +115,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 rounded-2xl p-6 shadow-sm">
               <div className="flex gap-4">
                 <div className="h-10 w-10 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-shrink-0 items-center justify-center">
                   <MapPin className="h-5 w-5 text-slate-700 dark:text-slate-300" />
@@ -126,7 +131,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 rounded-2xl p-6 shadow-sm">
               <div className="flex gap-4">
                 <div className="h-10 w-10 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-shrink-0 items-center justify-center">
                   <MapPin className="h-5 w-5 text-slate-700 dark:text-slate-300" />
@@ -145,7 +150,7 @@ export default function ContactPage() {
 
           {/* Right Column: Clean Enterprise Form */}
           <div className="lg:col-span-3">
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm">
+            <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 rounded-2xl p-8 shadow-sm">
               
               <form className="space-y-6" onSubmit={handleSubmit}>
                 {status === "success" && (

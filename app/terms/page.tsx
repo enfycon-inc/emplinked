@@ -47,7 +47,11 @@ export default function TermsOfServicePage() {
   };
 
   return (
-    <div className="bg-slate-50 dark:bg-slate-950 min-h-screen">
+    <div className="bg-white dark:bg-slate-950 min-h-screen relative overflow-hidden">
+      {/* Responsive Ambient Background Glows */}
+      <div className="absolute top-1/4 left-0 -translate-x-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-400/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+      <div className="absolute top-2/4 right-0 translate-x-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-emerald-400/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-full h-[600px] max-w-4xl bg-gradient-to-r from-blue-300/10 via-purple-300/10 to-emerald-300/10 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
       {/* ── HERO BANNER ── */}
       <div className="bg-slate-900 pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
@@ -71,7 +75,7 @@ export default function TermsOfServicePage() {
           
           {/* Sticky Sidebar Navigation */}
           <div className="lg:w-1/4 hidden lg:block">
-            <div className="sticky top-32 bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200/80 dark:border-slate-800">
+            <div className="sticky top-32 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-6 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-white/60 dark:border-slate-700/50">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-6">Table of Contents</h4>
               <nav className="space-y-1">
                 {sections.map((section) => {
@@ -97,7 +101,7 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* Content Area */}
-          <div className="lg:w-3/4 max-w-3xl">
+          <div className="lg:w-3/4 max-w-3xl relative z-10">
             <div className="space-y-16 text-slate-600 dark:text-slate-300 leading-relaxed text-base sm:text-lg">
               
               <p className="text-xl text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
@@ -115,11 +119,11 @@ export default function TermsOfServicePage() {
                 </div>
                 
                 <div className="grid gap-4 mb-8">
-                  <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                  <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-5 rounded-xl border border-white/60 dark:border-slate-700/50 shadow-sm">
                     <h3 className="font-bold text-slate-900 dark:text-white mb-2">Customer (Employer)</h3>
                     <p className="text-sm">The entity or organization that purchases a subscription to use the Services for its workforce.</p>
                   </div>
-                  <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                  <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-5 rounded-xl border border-white/60 dark:border-slate-700/50 shadow-sm">
                     <h3 className="font-bold text-slate-900 dark:text-white mb-2">End User (Employee)</h3>
                     <p className="text-sm">An individual authorized by a Customer to access and use the Services (e.g., an employee or contractor).</p>
                   </div>
@@ -210,13 +214,13 @@ export default function TermsOfServicePage() {
                   <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Liability & Indemnity</h2>
                 </div>
                 <div className="space-y-6">
-                  <div className="bg-amber-50 dark:bg-amber-900/10 p-6 rounded-xl border border-amber-200 dark:border-amber-900/50">
-                    <h3 className="font-bold text-amber-900 dark:text-amber-400 mb-2">Indemnification</h3>
-                    <p className="text-sm text-amber-800 dark:text-amber-200/70">
+                  <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-6 rounded-xl border border-white/60 dark:border-slate-700/50 shadow-sm">
+                    <h3 className="font-bold text-slate-900 dark:text-white mb-2">Indemnification</h3>
+                    <p className="text-sm">
                       The Customer agrees to indemnify and hold harmless Emplinked (EnfyCon) against any claims, lawsuits, or penalties arising from the Customer's failure to comply with labor laws, failure to obtain employee consent for tracking/biometrics, or misuse of the platform.
                     </p>
                   </div>
-                  <div className="bg-slate-100 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                  <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-6 rounded-xl border border-white/60 dark:border-slate-700/50 shadow-sm">
                     <h3 className="font-bold text-slate-900 dark:text-white mb-2">Limitation of Liability</h3>
                     <p className="text-sm">
                       To the maximum extent permitted by law, Emplinked shall not be liable for any indirect, incidental, special, consequential, or punitive damages. Emplinked's total aggregate liability shall not exceed the total amount paid by the Customer in the 12 months preceding the event giving rise to the claim.
@@ -249,17 +253,17 @@ export default function TermsOfServicePage() {
                 </p>
               </section>
 
-              <section className="bg-slate-900 dark:bg-slate-900 rounded-3xl p-8 sm:p-12 border border-slate-800 text-center">
-                <div className="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <Mail className="w-8 h-8 text-indigo-400" />
+              <section className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl rounded-3xl p-8 sm:p-12 border border-white/60 dark:border-slate-700/50 text-center shadow-sm">
+                <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm border border-slate-100 dark:border-slate-700">
+                  <Mail className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-4">Legal Inquiries</h2>
-                <p className="text-slate-400 mb-8 max-w-md mx-auto">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Legal Inquiries</h2>
+                <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-md mx-auto">
                   For legal inquiries or notices regarding these Terms, please contact the EnfyCon Legal Department.
                 </p>
                 <a 
                   href="mailto:legal@emplinked.com"
-                  className="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold rounded-full bg-indigo-600 text-white hover:bg-indigo-500 transition-colors shadow-xl shadow-indigo-900/20"
+                  className="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold rounded-full bg-blue-700 text-white hover:bg-blue-800 transition-colors shadow-xl shadow-blue-700/20"
                 >
                   Contact Legal Team
                 </a>

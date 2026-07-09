@@ -101,10 +101,10 @@ export default function PlatformPage() {
 
       {/* Structured Modules Grid with Colorful Touches */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        {/* Ambient Side Glows for Glassmorphism */}
-        <div className="absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 w-[600px] h-[600px] bg-blue-400/30 blur-[120px] z-0 rounded-full pointer-events-none"></div>
-        <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 w-[600px] h-[600px] bg-emerald-400/30 blur-[120px] z-0 rounded-full pointer-events-none"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[120%] max-w-4xl bg-gradient-to-r from-blue-300/20 via-purple-300/20 to-emerald-300/20 blur-[100px] z-0 rounded-full pointer-events-none"></div>
+        {/* Responsive Ambient Side Glows for Glassmorphism */}
+        <div className="absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-400/30 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none"></div>
+        <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-emerald-400/30 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[120%] max-w-4xl bg-gradient-to-r from-blue-300/20 via-purple-300/20 to-emerald-300/20 blur-[60px] md:blur-[100px] z-0 rounded-full pointer-events-none"></div>
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {coreModules.map((mod) => (
@@ -126,7 +126,7 @@ export default function PlatformPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-800 relative">
           
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] md:w-[800px] md:h-[800px] bg-blue-500/10 rounded-full blur-[80px] md:blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
             {/* Left Content */}

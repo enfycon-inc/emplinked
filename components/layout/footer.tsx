@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Command, Github, Twitter, Linkedin, ArrowRight, Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { EmplinkedLogo } from "@/components/ui/emplinked-logo";
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -50,9 +51,9 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-8 pb-12">
           {/* Brand Info */}
           <div className="md:col-span-2 flex flex-col space-y-5">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 text-xs font-bold">
-                E
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="h-8 w-8 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 drop-shadow-md">
+                <EmplinkedLogo className="w-full h-full" />
               </div>
               <span className="text-base font-bold tracking-tight text-slate-900">
                 Emplinked

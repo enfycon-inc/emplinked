@@ -14,7 +14,11 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="bg-white dark:bg-slate-950 min-h-screen pb-24">
+    <div className="bg-white dark:bg-slate-950 min-h-screen pb-24 relative overflow-hidden">
+      {/* Responsive Ambient Background Glows */}
+      <div className="absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-400/30 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+      <div className="absolute top-1/3 right-0 translate-x-1/4 translate-y-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-emerald-400/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-full h-[800px] max-w-4xl bg-gradient-to-r from-blue-300/20 via-purple-300/20 to-emerald-300/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
       
       {/* Clean Header with Stock Photo */}
       <div className="pt-32 pb-24 relative overflow-hidden">
@@ -65,8 +69,8 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Values Grid (Beautiful Image Cards) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-slate-50 dark:bg-slate-900/50 mt-12 rounded-[3rem] mb-12">
+      {/* Values Grid (Glassmorphism Cards) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-slate-50/50 dark:bg-slate-900/50 mt-12 rounded-[3rem] mb-12 relative z-10 border border-slate-200/50 dark:border-slate-800">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-4">
             Core Values
@@ -76,7 +80,7 @@ export default function AboutPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {values.map((v) => (
-            <div key={v.title} className={`${v.bgColor} dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow group flex flex-col gap-5`}>
+            <div key={v.title} className={`bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 p-8 rounded-3xl shadow-sm hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-2 group flex flex-col gap-5`}>
               <div className="flex items-center gap-4">
                 <div className="h-16 w-16 shrink-0 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 group-hover:scale-105 transition-transform duration-300">
                   <img src={v.image} alt={v.title} className="w-full h-full object-cover" />

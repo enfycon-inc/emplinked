@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ChevronRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { EmplinkedLogo } from "@/components/ui/emplinked-logo";
 
 export const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,12 +39,12 @@ export const Header: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Logo */}
+        {/* Premium Scalable Vector Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-700/20 group-hover:scale-105 transition-transform">
-            E
+          <div className="h-9 w-9 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 drop-shadow-md">
+            <EmplinkedLogo className="w-full h-full" />
           </div>
-          <span className={`text-xl font-bold tracking-tight transition-colors duration-300 ${isDarkHero && !scrolled ? "text-white" : "text-slate-900 dark:text-white"}`}>
+          <span className={`text-2xl font-black tracking-tighter transition-colors duration-300 ${isDarkHero && !scrolled ? "text-white" : "text-slate-900 dark:text-white"}`}>
             Emplinked
           </span>
         </Link>

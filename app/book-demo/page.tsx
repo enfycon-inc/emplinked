@@ -56,7 +56,12 @@ export default function BookDemoPage() {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-950 text-slate-900 min-h-screen pb-24">
+    <div className="bg-white dark:bg-slate-950 text-slate-900 min-h-screen pb-24 relative overflow-hidden">
+      {/* Responsive Ambient Background Glows */}
+      <div className="absolute top-1/4 left-0 -translate-x-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-400/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+      <div className="absolute top-2/4 right-0 translate-x-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-emerald-400/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[600px] max-w-4xl bg-gradient-to-r from-blue-300/10 via-purple-300/10 to-emerald-300/10 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
+      
       {/* Full Bleed Hero Section */}
       <section className="relative pt-32 pb-24 overflow-hidden mb-16">
         <div className="absolute inset-0 pointer-events-none">
@@ -77,7 +82,7 @@ export default function BookDemoPage() {
       </section>
 
       {checkoutStep === 1 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 relative z-10">
           {/* Duration Selector */}
           <div className="flex justify-center items-center gap-3">
             <span className="text-xs sm:text-sm text-slate-600 font-semibold">Subscription Duration:</span>
@@ -98,7 +103,7 @@ export default function BookDemoPage() {
           {/* Cards: Silver vs Gold */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Silver Plan */}
-            <Card hoverGlow={false} className="bg-white border border-slate-200 shadow-sm p-8 flex flex-col justify-between relative overflow-hidden">
+            <Card hoverGlow={false} className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 shadow-sm p-8 flex flex-col justify-between relative overflow-hidden">
               <div className="space-y-6">
                 <div>
                   <Badge variant="secondary" className="text-[10px]">Standard Plan</Badge>
@@ -120,7 +125,7 @@ export default function BookDemoPage() {
             </Card>
 
             {/* Gold Plan */}
-            <Card hoverGlow={false} className="bg-white border-2 border-blue-600 shadow-md p-8 flex flex-col justify-between relative overflow-hidden">
+            <Card hoverGlow={false} className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border-2 border-blue-600 shadow-md p-8 flex flex-col justify-between relative overflow-hidden">
               <div className="absolute top-0 right-0 bg-blue-600 text-white text-[9px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-bl">
                 Popular Choice
               </div>
@@ -150,7 +155,7 @@ export default function BookDemoPage() {
           <div className="max-w-4xl mx-auto border-t border-slate-200 pt-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
               {/* Inputs */}
-              <div className="lg:col-span-5 space-y-6 bg-slate-50 border border-slate-200/80 rounded-xl p-6 shadow-sm">
+              <div className="lg:col-span-5 space-y-6 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 rounded-xl p-6 shadow-sm">
                 <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                   <Calculator className="h-5 w-5 text-blue-600" /> Subscription Calculator
                 </h3>
@@ -195,7 +200,7 @@ export default function BookDemoPage() {
               {/* Invoice Breakdown */}
               <div className="lg:col-span-7 h-full">
                 {calcResult ? (
-                  <Card hoverGlow={false} className="bg-white border border-slate-200 shadow-sm p-6 space-y-5 animate-in fade-in zoom-in-95">
+                  <Card hoverGlow={false} className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 shadow-sm p-6 space-y-5 animate-in fade-in zoom-in-95">
                     <h4 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
                       <FileText className="h-4.5 w-4.5 text-blue-600" /> Invoice Breakdown Estimate
                     </h4>
@@ -256,8 +261,8 @@ export default function BookDemoPage() {
       )}
 
       {checkoutStep === 2 && (
-        <section className="max-w-md mx-auto px-4">
-          <Card className="bg-white border border-slate-200 shadow-sm p-8">
+        <section className="max-w-md mx-auto px-4 relative z-10">
+          <Card className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 shadow-sm p-8">
             <h3 className="text-lg font-bold text-slate-900 mb-4 border-b border-slate-100 pb-3">
               Confirm Consultation Booking
             </h3>
@@ -334,8 +339,8 @@ export default function BookDemoPage() {
       )}
 
       {checkoutStep === 3 && (
-        <section className="max-w-md mx-auto px-4">
-          <Card className="text-center py-10 space-y-4 animate-in fade-in zoom-in-95 bg-white border border-slate-200 shadow-sm">
+        <section className="max-w-md mx-auto px-4 relative z-10">
+          <Card className="text-center py-10 space-y-4 animate-in fade-in zoom-in-95 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 shadow-sm">
             <div className="h-10 w-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-2 shadow-sm">
               <CheckCircle2 className="h-5 w-5" />
             </div>

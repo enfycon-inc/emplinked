@@ -329,8 +329,8 @@ export default function SolutionsPage() {
         <div className="relative rounded-[2.5rem] p-12 md:p-20 overflow-hidden bg-slate-900 shadow-2xl border border-slate-800">
           {/* Ambient Glowing Backgrounds */}
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=2000&q=80')] opacity-30 bg-cover bg-center mix-blend-overlay"></div>
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/40 rounded-full blur-[100px] z-0 pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
-          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-500/40 rounded-full blur-[100px] z-0 pointer-events-none transform -translate-x-1/3 translate-y-1/3"></div>
+          <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-blue-500/40 rounded-full blur-[80px] md:blur-[100px] z-0 pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-indigo-500/40 rounded-full blur-[80px] md:blur-[100px] z-0 pointer-events-none transform -translate-x-1/3 translate-y-1/3"></div>
 
           <div className="relative z-10 text-center flex flex-col items-center">
             <div className="h-16 w-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 border border-white/20 shadow-xl p-1">
