@@ -16,8 +16,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://emplinked.com"),
   title: "Emplinked - The Intelligent Workforce Operating System",
   description: "Automate attendance, payroll, shift scheduling, and HR operations with the ultimate cloud-native workforce platform.",
+  openGraph: {
+    title: "Emplinked - The Intelligent Workforce Operating System",
+    description: "Automate attendance, payroll, shift scheduling, and HR operations with the ultimate cloud-native workforce platform.",
+    url: "https://emplinked.com",
+    siteName: "Emplinked",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Emplinked - The Intelligent Workforce Operating System",
+    description: "Automate attendance, payroll, shift scheduling, and HR operations with the ultimate cloud-native workforce platform.",
+  },
 };
 
 export default function RootLayout({

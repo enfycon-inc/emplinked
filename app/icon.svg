@@ -1,0 +1,22 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cube-left" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#2563EB" />
+      <stop offset="100%" stopColor="#4F46E5" />
+    </linearGradient>
+    <linearGradient id="cube-right" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#10B981" />
+      <stop offset="100%" stopColor="#059669" />
+    </linearGradient>
+    <linearGradient id="cube-top" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#38BDF8" />
+      <stop offset="100%" stopColor="#2563EB" />
+    </linearGradient>
+  </defs>
+  <path d="M50 10 L90 32.5 L50 55 L10 32.5 Z" fill="url(#cube-top)" />
+  <path d="M10 32.5 L50 55 L50 95 L10 72.5 Z" fill="url(#cube-left)" />
+  <path d="M90 32.5 L50 55 L50 95 L90 72.5 Z" fill="url(#cube-right)" />
+  <path d="M50 10 L90 32.5 L50 55 L10 32.5 Z" fill="#ffffff" fillOpacity="0.2" />
+  <path d="M10 32.5 L50 55 L50 75 L10 52.5 Z" fill="#ffffff" fillOpacity="0.1" />
+  <circle cx="50" cy="55" r="8" fill="#ffffff" />
+</svg>
