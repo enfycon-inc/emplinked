@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Check, Info, Calculator, FileText, ChevronRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -65,7 +66,7 @@ export default function BookDemoPage() {
       {/* Full Bleed Hero Section */}
       <section className="relative pt-32 pb-24 overflow-hidden mb-16">
         <div className="absolute inset-0 pointer-events-none">
-           <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2015&q=80" alt="Data and Analytics" className="w-full h-full object-cover" />
+           <Image src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2015&q=80" alt="Data and Analytics" fill className="object-cover" />
            <div className="absolute inset-0 bg-slate-900/85"></div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -85,8 +86,10 @@ export default function BookDemoPage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 relative z-10">
           {/* Duration Selector */}
           <div className="flex justify-center items-center gap-3">
-            <span className="text-xs sm:text-sm text-slate-600 font-semibold">Subscription Duration:</span>
+            <label htmlFor="duration" className="text-xs sm:text-sm text-slate-600 font-semibold">Subscription Duration:</label>
             <select
+              id="duration"
+              name="duration"
               value={duration}
               onChange={(e) => {
                 setDuration(e.target.value);
@@ -161,10 +164,12 @@ export default function BookDemoPage() {
                 </h3>
 
                 <div>
-                  <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                  <label htmlFor="silverQty" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                     Silver Plan Employees
                   </label>
                   <input
+                    id="silverQty"
+                    name="silverQty"
                     type="number"
                     min="0"
                     value={silverQty}
@@ -177,10 +182,12 @@ export default function BookDemoPage() {
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                  <label htmlFor="goldQty" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                     Gold Plan Employees
                   </label>
                   <input
+                    id="goldQty"
+                    name="goldQty"
                     type="number"
                     min="0"
                     value={goldQty}
@@ -284,10 +291,12 @@ export default function BookDemoPage() {
 
             <form onSubmit={handleCheckoutSubmit} className="space-y-4">
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                <label htmlFor="name" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                   Your Name
                 </label>
                 <input
+                  id="name"
+                  name="name"
                   type="text"
                   required
                   value={checkoutData.name}
@@ -298,10 +307,12 @@ export default function BookDemoPage() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                <label htmlFor="email" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                   Work Email
                 </label>
                 <input
+                  id="email"
+                  name="email"
                   type="email"
                   required
                   value={checkoutData.email}
@@ -312,10 +323,12 @@ export default function BookDemoPage() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                <label htmlFor="mobile" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                   Contact Mobile
                 </label>
                 <input
+                  id="mobile"
+                  name="mobile"
                   type="tel"
                   required
                   value={checkoutData.mobile}

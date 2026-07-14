@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+import { AppMockup } from "@/components/ui/app-mockup";
 import { MapPin, DollarSign, Calendar, BarChart3, ShieldCheck, Zap, ArrowRight, Smartphone, ScanFace, Bell, Download, Star, Users, FileText, CheckCircle, Activity, Briefcase, AlertTriangle, MessageSquare, CreditCard, Settings, Package, UserPlus, Database, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -83,7 +85,7 @@ export default function PlatformPage() {
       {/* Clean Enterprise Hero with Photography */}
       <div className="pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-           <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Enterprise Team" className="w-full h-full object-cover" />
+           <Image src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Enterprise Team" fill className="object-cover" />
            <div className="absolute inset-0 bg-slate-900/75"></div>
         </div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
@@ -170,22 +172,23 @@ export default function PlatformPage() {
               </div>
 
               <div className="flex gap-4">
-                <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold h-12 px-6 rounded-xl shadow-lg">
-                  <Download className="mr-2 h-5 w-5" /> Download on Google Play
-                </Button>
+                <a 
+                  href="https://play.google.com/store/search?q=work+360&c=apps" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto"
+                >
+                  <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold h-12 px-6 rounded-xl shadow-lg w-full">
+                    <Download className="mr-2 h-5 w-5" /> Download on Google Play
+                  </Button>
+                </a>
               </div>
 
             </div>
 
-            {/* Right Column: Photography Showcase */}
-            <div className="relative h-96 lg:h-auto bg-slate-800">
-              <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
-                alt="Emplinked Mobile App Usage" 
-                className="w-full h-full object-cover opacity-80"
-              />
-              {/* Overlay gradient to blend images */}
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-900 to-transparent"></div>
+            {/* Right Column: Mobile App Showcase */}
+            <div className="relative flex justify-center items-center py-10 lg:py-0">
+              <AppMockup />
             </div>
 
           </div>
@@ -375,10 +378,11 @@ export default function PlatformPage() {
                 >
                   {/* Image Header with Color Blend */}
                   <div className="h-32 w-full relative flex-shrink-0 bg-slate-900">
-                    <img 
+                    <Image 
                       src={`https://picsum.photos/seed/emplinked${index}/400/200`} 
                       alt={cap.title}
-                      className="w-full h-full object-cover mix-blend-overlay opacity-60 group-hover:scale-110 transition-transform duration-700"
+                      fill
+                      className="object-cover mix-blend-overlay opacity-60 group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                     <div className="absolute bottom-4 left-6 flex items-center gap-3">

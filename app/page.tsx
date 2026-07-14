@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { AppMockup } from "@/components/ui/app-mockup";
 import {
   ArrowRight,
   CheckCircle,
@@ -303,14 +305,8 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl lg:rotate-3 lg:hover:rotate-0 transition-transform duration-500 border border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900">
-                <img 
-                  alt="Emplinked Mobile App Interface" 
-                  className="w-full h-auto object-cover" 
-                  src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
-                />
-              </div>
+            <div className="relative flex justify-center">
+              <AppMockup />
             </div>
             
             <div className="space-y-6 lg:pl-8">

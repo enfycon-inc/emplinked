@@ -77,6 +77,7 @@ export function PhoneInput({ name, value, onChange }: PhoneInputProps = {}) {
             value={selectedCountry.dialCode}
           />
           <input
+            id={name}
             type="tel"
             name={name}
             value={value}

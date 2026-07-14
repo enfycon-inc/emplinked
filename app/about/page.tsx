@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Target, Eye, Lightbulb, ShieldCheck, HeartHandshake, Zap, Shield, RefreshCw } from "lucide-react";
+import Image from "next/image";
 
 export default function AboutPage() {
   const values = [
@@ -23,7 +24,7 @@ export default function AboutPage() {
       {/* Clean Header with Stock Photo */}
       <div className="pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-           <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Team collaborating" className="w-full h-full object-cover" />
+           <Image src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Team collaborating" fill className="object-cover" />
            <div className="absolute inset-0 bg-slate-900/75"></div>
         </div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
@@ -40,7 +41,7 @@ export default function AboutPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
           <div className="order-2 lg:order-1 relative h-[400px] rounded-[2rem] overflow-hidden shadow-xl border border-slate-200">
-             <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Mission Strategy" className="w-full h-full object-cover" />
+             <Image src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Mission Strategy" fill className="object-cover" />
           </div>
           <div className="space-y-6 order-1 lg:order-2">
             <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-2 border border-blue-100">
@@ -64,7 +65,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="relative h-[400px] rounded-[2rem] overflow-hidden shadow-xl border border-slate-200">
-             <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80" alt="Global Vision" className="w-full h-full object-cover" />
+             <Image src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80" alt="Global Vision" fill className="object-cover" />
           </div>
         </div>
       </div>
@@ -83,7 +84,7 @@ export default function AboutPage() {
             <div key={v.title} className={`bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/50 p-8 rounded-3xl shadow-sm hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-2 group flex flex-col gap-5`}>
               <div className="flex items-center gap-4">
                 <div className="h-16 w-16 shrink-0 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 group-hover:scale-105 transition-transform duration-300">
-                  <img src={v.image} alt={v.title} className="w-full h-full object-cover" />
+                  <Image src={v.image} alt={v.title} width={64} height={64} className="w-full h-full object-cover" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">{v.title}</h3>
               </div>

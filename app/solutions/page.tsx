@@ -4,6 +4,7 @@ import React from "react";
 import { GraduationCap, HeartPulse, Factory, HardHat, Store, Truck, ArrowRight, Calculator, FileSpreadsheet, BrainCircuit, Bot, ShieldAlert, Eye, CheckCircle, Package, Activity, Users, Briefcase, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function SolutionsPage() {
   const [activeIndustry, setActiveIndustry] = React.useState(0);
@@ -75,7 +76,7 @@ export default function SolutionsPage() {
       {/* Clean Header with Photography */}
       <div className="relative pt-32 pb-24 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-           <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" alt="Tech industry" className="w-full h-full object-cover" />
+           <Image src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" alt="Tech industry" fill className="object-cover" />
            <div className="absolute inset-0 bg-slate-900/75"></div>
         </div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
@@ -122,10 +123,11 @@ export default function SolutionsPage() {
           <div className="lg:col-span-8">
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-xl">
               <div className="h-64 sm:h-80 w-full relative">
-                <img 
+                <Image 
                   src={industrySolutions[activeIndustry].image} 
                   alt={industrySolutions[activeIndustry].name} 
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 p-8">
@@ -173,10 +175,12 @@ export default function SolutionsPage() {
             {/* Payroll & Compliance */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <img 
+                <Image 
                   src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=150&q=80"
                   alt="Payroll"
-                  className="h-16 w-16 rounded-2xl object-cover mb-8 shadow-md border border-slate-200 dark:border-slate-700"
+                  width={64}
+                  height={64}
+                  className="rounded-2xl object-cover mb-8 shadow-md border border-slate-200 dark:border-slate-700"
                 />
                 <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">Advanced Payroll & Compliance</h3>
                 <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-8">
@@ -245,10 +249,12 @@ export default function SolutionsPage() {
                  </div>
               </div>
               <div className="order-1 lg:order-2">
-                <img 
+                <Image 
                   src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=150&q=80"
                   alt="AI Network"
-                  className="h-16 w-16 rounded-2xl object-cover mb-8 shadow-md border border-slate-200 dark:border-slate-700"
+                  width={64}
+                  height={64}
+                  className="rounded-2xl object-cover mb-8 shadow-md border border-slate-200 dark:border-slate-700"
                 />
                 <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">AI & Intelligent Communication</h3>
                 <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-8">
@@ -274,10 +280,12 @@ export default function SolutionsPage() {
             {/* Security & Monitoring */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <img 
+                <Image 
                   src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=150&q=80"
                   alt="Security Camera"
-                  className="h-16 w-16 rounded-2xl object-cover mb-8 shadow-md border border-slate-200 dark:border-slate-700"
+                  width={64}
+                  height={64}
+                  className="rounded-2xl object-cover mb-8 shadow-md border border-slate-200 dark:border-slate-700"
                 />
                 <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">Uncompromising Security & Monitoring</h3>
                 <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-8">
@@ -335,7 +343,7 @@ export default function SolutionsPage() {
           <div className="relative z-10 text-center flex flex-col items-center">
             <div className="h-16 w-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 border border-white/20 shadow-xl p-1">
               <div className="w-full h-full rounded-xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80" alt="Expert" className="w-full h-full object-cover" />
+                <Image src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80" alt="Expert" width={64} height={64} className="w-full h-full object-cover" />
               </div>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">

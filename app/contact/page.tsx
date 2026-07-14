@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { MessageSquare, PhoneCall, MapPin, ArrowRight, Loader2 } from "lucide-react";
+import { MapPin, Phone, Mail, MessageSquare, ArrowRight, CheckCircle2, ShieldCheck, Zap, Globe, Shield, Clock, PhoneCall, Loader2 } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { Turnstile } from "@marsidev/react-turnstile";
@@ -64,7 +65,7 @@ export default function ContactPage() {
       {/* Full Bleed Hero Section */}
       <div className="relative pt-32 pb-24 overflow-hidden mb-12">
         <div className="absolute inset-0 pointer-events-none">
-           <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Contact Support" className="w-full h-full object-cover" />
+           <Image src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Contact Support" fill className="object-cover" />
            <div className="absolute inset-0 bg-slate-900/85"></div>
         </div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
@@ -166,8 +167,9 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Full Name</label>
+                    <label htmlFor="fullName" className="text-sm font-semibold text-slate-700 dark:text-slate-300">Full Name</label>
                     <input 
+                      id="fullName"
                       type="text" 
                       name="fullName"
                       required
@@ -176,8 +178,9 @@ export default function ContactPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Work Email</label>
+                    <label htmlFor="email" className="text-sm font-semibold text-slate-700 dark:text-slate-300">Work Email</label>
                     <input 
+                      id="email"
                       type="email" 
                       name="email"
                       required
@@ -189,8 +192,9 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Company Name</label>
+                    <label htmlFor="company" className="text-sm font-semibold text-slate-700 dark:text-slate-300">Company Name</label>
                     <input 
+                      id="company"
                       type="text" 
                       name="company"
                       placeholder="Acme Corp" 
@@ -198,14 +202,15 @@ export default function ContactPage() {
                     />
                   </div>
                   <div className="space-y-2 relative z-50">
-                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Phone Number</label>
+                    <label htmlFor="phone" className="text-sm font-semibold text-slate-700 dark:text-slate-300">Phone Number</label>
                     <PhoneInput name="phone" />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">How can we help?</label>
+                  <label htmlFor="message" className="text-sm font-semibold text-slate-700 dark:text-slate-300">How can we help?</label>
                   <textarea 
+                    id="message"
                     rows={4} 
                     name="message"
                     required

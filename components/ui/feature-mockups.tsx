@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ScanFace, CheckCircle, MapPin, Map, Calendar, AlertTriangle, Users, FileText, Check, FileCheck2, UserCheck, ShieldCheck, Building, Clock, ChevronRight } from 'lucide-react';
 
 import { HeroMockupDisplay } from './hero-mockups';
+import { AppMockup } from './app-mockup';
 
 type FeatureType = 'time-theft' | 'zero-error-payroll' | 'field-forces' | 'shift-control' | 'hr-resolutions' | 'analytics';
 
@@ -12,7 +13,7 @@ interface FeatureMockupDisplayProps {
 export function FeatureMockupDisplay({ type }: FeatureMockupDisplayProps) {
   if (type === 'analytics') return (
     <PhoneWrapper>
-      <div className="w-full h-full overflow-hidden relative rounded-xl border border-slate-100 dark:border-slate-800">
+      <div className="w-full h-full overflow-hidden relative rounded-xl border border-slate-100 dark:border-slate-800 bg-white">
         <div className="absolute inset-0 scale-[0.6] origin-top-left w-[166%] h-[166%] pointer-events-none">
           <HeroMockupDisplay type="analytics" />
         </div>
@@ -22,18 +23,71 @@ export function FeatureMockupDisplay({ type }: FeatureMockupDisplayProps) {
   if (type === 'time-theft') return <TimeTheftMockup />;
   if (type === 'zero-error-payroll') return <PayrollMockup />;
   if (type === 'field-forces') return <FieldForcesMockup />;
-  if (type === 'shift-control') return <ShiftControlMockup />;
-  if (type === 'hr-resolutions') return <HrResolutionsMockup />;
+  if (type === 'shift-control') return (
+    <div className="w-full h-full flex items-center justify-center transform scale-[0.75] origin-center pointer-events-none">
+      <AppMockup autoPlay={false} initialScreen="duty" />
+    </div>
+  );
+  if (type === 'hr-resolutions') return (
+    <div className="w-full h-full flex items-center justify-center transform scale-[0.75] origin-center pointer-events-none">
+      <AppMockup autoPlay={false} initialScreen="leave" />
+    </div>
+  );
   return null;
 }
 
+import { Menu } from 'lucide-react';
+
 // A standard mobile phone wrapper for all feature mockups to ensure perfect uniformity
+// Upgraded to use the Emplinked premium iPhone style!
 function PhoneWrapper({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full h-full min-h-[400px] flex items-center justify-center relative p-2">
-      <div className="relative z-10 w-full max-w-[300px] mx-auto h-[500px]">
-        <div className="bg-white dark:bg-slate-950 rounded-[2.5rem] shadow-[0_0_40px_rgba(0,0,0,0.05)] border border-slate-100 dark:border-slate-800 p-5 overflow-hidden relative w-full h-full flex flex-col">
-          {children}
+    <div className="w-full h-full min-h-[400px] flex items-center justify-center relative p-2 transform scale-[0.8] origin-center pointer-events-none">
+      
+      <div className="relative mx-auto w-[280px] sm:w-[320px] h-[580px] sm:h-[650px] bg-black rounded-[3rem] p-2.5 shadow-2xl border-[4px] border-slate-800 dark:border-slate-700 shrink-0">
+        {/* Phone Notch */}
+        <div className="absolute top-0 inset-x-0 h-6 flex justify-center z-50">
+          <div className="w-1/3 h-5 bg-black rounded-b-xl relative">
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-1.5 bg-slate-800 rounded-full"></div>
+            <div className="absolute top-1.5 right-3 w-2.5 h-2.5 bg-blue-900/40 rounded-full border border-blue-900/60 flex items-center justify-center">
+              <div className="w-1 h-1 bg-blue-500 rounded-full"></div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Side Buttons */}
+        <div className="absolute top-24 -left-[6px] w-[3px] h-12 bg-slate-800 dark:bg-slate-700 rounded-l-md"></div>
+        <div className="absolute top-40 -left-[6px] w-[3px] h-12 bg-slate-800 dark:bg-slate-700 rounded-l-md"></div>
+        <div className="absolute top-32 -right-[6px] w-[3px] h-16 bg-slate-800 dark:bg-slate-700 rounded-r-md"></div>
+
+        {/* Screen container */}
+        <div className="relative w-full h-full bg-slate-50 rounded-[2.5rem] overflow-hidden flex flex-col font-sans">
+          
+          {/* Status Bar */}
+          <div className="h-7 w-full bg-[#001c40] flex justify-between items-center px-5 pt-1 text-[10px] text-white/90 z-40 font-medium shrink-0">
+            <span>1:14</span>
+            <div className="flex gap-1.5 items-center">
+              <div className="w-3 h-2.5 bg-white/90 rounded-[2px] relative overflow-hidden">
+                 <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-white/30"></div>
+              </div>
+              <span>4G</span>
+              <span>48%</span>
+            </div>
+          </div>
+
+          {/* Header */}
+          <div className="bg-[#001c40] px-4 pt-2 pb-6 relative z-30 shrink-0 shadow-sm">
+            <div className="flex items-center justify-between text-white">
+              <Menu className="h-6 w-6" />
+              <span className="font-bold tracking-widest text-sm">EMPLINKED</span>
+              <div className="w-6" />
+            </div>
+          </div>
+
+          {/* Bespoke Feature Content Area */}
+          <div className="flex-1 w-full bg-slate-50 relative overflow-hidden p-5 flex flex-col">
+            {children}
+          </div>
         </div>
       </div>
     </div>

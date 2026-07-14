@@ -117,6 +117,9 @@ export const Footer: React.FC = () => {
               )}
               <div className="flex gap-2">
                 <input
+                  id="newsletterEmail"
+                  name="newsletterEmail"
+                  aria-label="Email address for newsletter"
                   type="email"
                   required
                   value={email}
