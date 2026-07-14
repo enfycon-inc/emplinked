@@ -2,7 +2,7 @@ import React from "react";
 import { 
   BarChart3, Users, Clock, DollarSign, Calendar, 
   MapPin, CheckCircle2, ChevronDown, Bell, Search, 
-  Menu, Fingerprint, Activity
+  Menu, Fingerprint, ScanFace, Activity
 } from "lucide-react";
 
 export function HeroMockupDisplay({ type }: { type: 'analytics' | 'mobile' | 'payroll' | 'scheduling' }) {
@@ -166,7 +166,7 @@ export function HeroMockupDisplay({ type }: { type: 'analytics' | 'mobile' | 'pa
               <div className="relative group cursor-pointer mb-6">
                 <div className="absolute -inset-2 bg-emerald-500 rounded-full blur opacity-40 animate-pulse"></div>
                 <div className="h-32 w-32 bg-emerald-500 rounded-full flex flex-col items-center justify-center text-white shadow-xl relative z-10 border-4 border-white dark:border-slate-950 transition-transform transform hover:scale-105">
-                  <Fingerprint className="h-10 w-10 mb-1" />
+                  <ScanFace className="h-10 w-10 mb-1" />
                   <span className="font-black text-sm tracking-widest">CHECK IN</span>
                 </div>
               </div>

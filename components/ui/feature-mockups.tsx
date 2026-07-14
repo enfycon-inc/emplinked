@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Fingerprint, CheckCircle, MapPin, Map, Calendar, AlertTriangle, Users, FileText, Check, FileCheck2, UserCheck, ShieldCheck, Building, Clock, ChevronRight } from 'lucide-react';
+import { ScanFace, CheckCircle, MapPin, Map, Calendar, AlertTriangle, Users, FileText, Check, FileCheck2, UserCheck, ShieldCheck, Building, Clock, ChevronRight } from 'lucide-react';
 
 import { HeroMockupDisplay } from './hero-mockups';
 
@@ -60,7 +60,7 @@ function TimeTheftMockup() {
         <div className={`absolute w-full h-1 bg-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.8)] z-20 ${scanState === 1 || scanState === 2 ? 'top-1/2 opacity-100 transition-all duration-1000' : 'top-0 opacity-0'} ${scanState === 2 ? 'top-[90%]' : ''}`} />
         
         <div className="w-32 h-40 border-2 border-dashed rounded-[3rem] flex flex-col items-center justify-center gap-4 relative transition-colors duration-500" style={{ borderColor: scanState >= 2 ? 'rgba(16, 185, 129, 0.5)' : 'rgba(59, 130, 246, 0.3)' }}>
-          <Fingerprint className={`w-16 h-16 ${scanState >= 2 ? 'text-emerald-500' : 'text-blue-500'}`} />
+          <ScanFace className={`w-16 h-16 ${scanState >= 2 ? 'text-emerald-500' : 'text-blue-500'}`} />
         </div>
 
         <div className={`absolute bottom-4 left-1/2 -translate-x-1/2 bg-white dark:bg-slate-800/90 backdrop-blur-md px-4 py-2 rounded-full border border-slate-100 dark:border-slate-700 transition-opacity duration-500 flex items-center gap-2 shadow-sm ${scanState >= 1 ? 'opacity-100' : 'opacity-0'}`}>

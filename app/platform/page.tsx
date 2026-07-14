@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { MapPin, DollarSign, Calendar, BarChart3, ShieldCheck, Zap, ArrowRight, Smartphone, Fingerprint, Bell, Download, Star, Users, FileText, CheckCircle, Activity, Briefcase, AlertTriangle, MessageSquare, CreditCard, Settings, Package, UserPlus, Database, Plus } from "lucide-react";
+import { MapPin, DollarSign, Calendar, BarChart3, ShieldCheck, Zap, ArrowRight, Smartphone, ScanFace, Bell, Download, Star, Users, FileText, CheckCircle, Activity, Briefcase, AlertTriangle, MessageSquare, CreditCard, Settings, Package, UserPlus, Database, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function PlatformPage() {
@@ -53,7 +53,7 @@ export default function PlatformPage() {
 
   const appFeatures = [
     { title: "Geo-Fenced Check-ins", icon: <MapPin className="h-5 w-5 text-blue-500" />, desc: "Ensure employees mark attendance at correct client locations." },
-    { title: "Facial Recognition", icon: <Fingerprint className="h-5 w-5 text-indigo-500" />, desc: "Advanced biometric security to completely eliminate proxy attendance." },
+    { title: "Facial Recognition", icon: <ScanFace className="h-5 w-5 text-indigo-500" />, desc: "Advanced biometric security to completely eliminate proxy attendance." },
     { title: "Real-Time Alerts", icon: <Bell className="h-5 w-5 text-amber-500" />, desc: "Instant push notifications for emergency alerts and company announcements." },
     { title: "HRMS on the Go", icon: <Calendar className="h-5 w-5 text-emerald-500" />, desc: "Apply for leaves, view holidays, and check payslips directly from your phone." }
   ];
@@ -133,7 +133,7 @@ export default function PlatformPage() {
             <div className="p-10 md:p-16 flex flex-col justify-center h-full">
               <div className="flex items-start gap-6 mb-8">
                 <div className="w-24 h-24 bg-white rounded-3xl p-4 shadow-xl flex-shrink-0 flex items-center justify-center transform -rotate-3 hover:rotate-0 transition-transform">
-                  <Fingerprint className="w-full h-full text-blue-600" strokeWidth={1.5} />
+                  <ScanFace className="w-full h-full text-blue-600" strokeWidth={1.5} />
                 </div>
                 <div>
                   <h2 className="text-3xl font-bold tracking-tight mb-1 text-white">Emplinked</h2>
