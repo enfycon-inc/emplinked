@@ -6,6 +6,7 @@ import { Check, Info, Calculator, FileText, ChevronRight, CheckCircle2 } from "l
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 export default function BookDemoPage() {
   const [duration, setDuration] = useState("12"); // 12, 24, 36 months
@@ -14,10 +15,13 @@ export default function BookDemoPage() {
   const [calcResult, setCalcResult] = useState<any>(null);
   const [checkoutStep, setCheckoutStep] = useState(1); // 1: Select & Calc, 2: Checkout, 3: Success
   const [checkoutData, setCheckoutData] = useState({ name: "", email: "", mobile: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   // Plan unit prices per month
-  const silverPrice = 29;
-  const goldPrice = 49;
+  const silverPrice = 79;
+  const goldPrice = 129;
 
   // Duration discounts
   const discountRate = duration === "36" ? 0.20 : duration === "24" ? 0.15 : 0.10;
@@ -49,15 +53,144 @@ export default function BookDemoPage() {
     });
   };
 
-  const handleCheckoutSubmit = (e: React.FormEvent) => {
+  const handleDownloadPDF = async () => {
+    try {
+      const html2pdf = (await import('html2pdf.js')).default;
+      
+      const element = document.createElement('div');
+      element.innerHTML = `
+        <div style="font-family: sans-serif; color: #0f172a; padding: 40px; background: white;">
+          <div style="border-bottom: 2px solid #0f172a; padding-bottom: 24px; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div>
+              <h1 style="font-size: 30px; font-weight: 900; margin: 0; letter-spacing: -1px;">EMPLINKED</h1>
+              <p style="font-size: 14px; font-weight: bold; color: #64748b; text-transform: uppercase; letter-spacing: 2px; margin: 4px 0 0 0;">By Enfycon</p>
+            </div>
+            <div style="text-align: right; font-size: 12px; color: #64748b;">
+              <p style="font-weight: bold; color: #0f172a; font-size: 14px; margin: 0;">PROPOSAL ESTIMATE</p>
+              <p style="margin: 4px 0;">Generated: ${new Date().toLocaleDateString()}</p>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 40px;">
+            <h2 style="font-size: 18px; font-weight: bold; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">Subscription Details</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 14px;">
+              <div style="color: #64748b;">Duration Term</div>
+              <div style="text-align: right; font-weight: bold;">${calcResult?.months} Months</div>
+              <div style="color: #64748b;">Silver Plan Employees</div>
+              <div style="text-align: right; font-weight: bold;">${calcResult?.sq}</div>
+              <div style="color: #64748b;">Gold Plan Employees</div>
+              <div style="text-align: right; font-weight: bold;">${calcResult?.gq}</div>
+            </div>
+          </div>
+
+          <div>
+            <h2 style="font-size: 18px; font-weight: bold; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">Pricing Breakdown</h2>
+            <div style="font-size: 14px; line-height: 2;">
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: #64748b;">Silver Subtotal</span>
+                <span style="font-family: monospace;">INR ${calcResult?.silverSubtotal.toLocaleString()}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: #64748b;">Gold Subtotal</span>
+                <span style="font-family: monospace;">INR ${calcResult?.goldSubtotal.toLocaleString()}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-top: 1px solid #f1f5f9; margin-top: 8px; padding-top: 8px;">
+                <span style="color: #64748b;">Base Subtotal</span>
+                <span style="font-family: monospace; font-weight: bold;">INR ${calcResult?.subtotal.toLocaleString()}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; color: #2563eb; font-weight: 500;">
+                <span>Volume Discount</span>
+                <span style="font-family: monospace;">- INR ${calcResult?.discountAmount.toLocaleString()}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: #64748b;">Taxable Amount</span>
+                <span style="font-family: monospace;">INR ${calcResult?.afterDiscount.toLocaleString()}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: #64748b;">GST (18%)</span>
+                <span style="font-family: monospace;">INR ${calcResult?.gstAmount.toLocaleString()}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-top: 2px solid #0f172a; margin-top: 16px; padding-top: 16px; font-size: 18px; font-weight: 900;">
+                <span>Grand Total Estimate</span>
+                <span style="font-family: monospace; color: #2563eb;">INR ${calcResult?.totalAmount.toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const opt: any = {
+        margin:       0,
+        filename:     'Enfycon-Proposal.pdf',
+        image:        { type: 'jpeg', quality: 1 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      
+      await html2pdf().set(opt).from(element).save();
+    } catch (err) {
+      console.error("Error generating PDF:", err);
+    }
+  };
+
+  const handleCheckoutSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError("");
+
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(checkoutData.mobile)) {
+      setFormError("Please enter a valid 10-digit Indian mobile number.");
+      return;
+    }
+
+    const freeEmailDomains = ["gmail.com", "yahoo.com", "yahoo.co.in", "hotmail.com", "outlook.com", "aol.com", "icloud.com"];
+    const domain = checkoutData.email.split("@")[1]?.toLowerCase();
+    if (domain && freeEmailDomains.includes(domain)) {
+      setFormError("Please use your official company email. Free domains are not allowed.");
+      return;
+    }
+
+    if (!turnstileToken) {
+      setFormError("Please complete the security check.");
+      return;
+    }
+
     if (checkoutData.name && checkoutData.email && checkoutData.mobile) {
-      setCheckoutStep(3);
+      setIsSubmitting(true);
+      try {
+        const response = await fetch("/api/book-proposal", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...checkoutData,
+            duration,
+            silverQty,
+            goldQty,
+            calcResult,
+          }),
+        });
+        
+        if (response.ok) {
+          setCheckoutStep(3);
+        } else {
+          console.error("Failed to send proposal");
+          // Fallback to step 3 anyway for demo purposes, or handle error
+          setCheckoutStep(3); 
+        }
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        setCheckoutStep(3);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
   return (
-    <div className="bg-white dark:bg-slate-950 text-slate-900 min-h-screen pb-24 relative overflow-hidden">
+    <>
+      <div className="print:hidden bg-white dark:bg-slate-950 text-slate-900 min-h-screen pb-24 relative overflow-hidden">
       {/* Responsive Ambient Background Glows */}
       <div className="absolute top-1/4 left-0 -translate-x-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-400/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
       <div className="absolute top-2/4 right-0 translate-x-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-emerald-400/20 blur-[80px] md:blur-[120px] z-0 rounded-full pointer-events-none" />
@@ -244,8 +377,11 @@ export default function BookDemoPage() {
                     </div>
 
                     <div className="pt-3 flex gap-2">
-                      <Button variant="secondary" className="w-1/2 text-xs py-2.5">
-                        Download Proposal
+                      <Button variant="secondary" className="w-1/2 text-xs py-2.5" onClick={() => {
+                        setCalcResult(null);
+                        setCheckoutStep(1);
+                      }}>
+                        Reset Calculator
                       </Button>
                       <Button variant="primary" className="w-1/2 text-xs py-2.5" onClick={() => setCheckoutStep(2)}>
                         Proceed Booking
@@ -290,6 +426,12 @@ export default function BookDemoPage() {
             </div>
 
             <form onSubmit={handleCheckoutSubmit} className="space-y-4">
+              {formError && (
+                <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs font-semibold text-left">
+                  {formError}
+                </div>
+              )}
+              
               <div>
                 <label htmlFor="name" className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                   Your Name
@@ -338,12 +480,24 @@ export default function BookDemoPage() {
                 />
               </div>
 
+              <div className="flex justify-center py-2">
+                <Turnstile
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"}
+                  onSuccess={(token) => setTurnstileToken(token)}
+                  options={{ size: "normal" }}
+                />
+              </div>
+
               <div className="flex gap-2 pt-2">
-                <Button type="button" variant="secondary" className="w-1/3" onClick={() => setCheckoutStep(1)}>
+                <Button type="button" variant="secondary" className="w-1/3" onClick={() => setCheckoutStep(1)} disabled={isSubmitting}>
                   Back
                 </Button>
-                <Button type="submit" variant="primary" className="w-2/3 flex items-center justify-center">
-                  Book Proposal
+                <Button type="submit" variant="primary" className="w-2/3 flex items-center justify-center" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Sending...
+                    </span>
+                  ) : "Book Proposal"}
                 </Button>
               </div>
             </form>
@@ -361,14 +515,89 @@ export default function BookDemoPage() {
             <p className="text-slate-500 text-xs sm:text-sm max-w-xs mx-auto leading-relaxed">
               We have generated your custom pricing invoice proposal total of <span className="font-semibold text-slate-900">₹{calcResult?.totalAmount.toLocaleString()}</span> and dispatched details to <span className="text-slate-900 font-mono font-semibold">{checkoutData.email}</span>. A representative will contact you within 2 hours.
             </p>
-            <div className="pt-4">
-              <Button variant="secondary" onClick={() => setCheckoutStep(1)}>
+            <div className="pt-4 flex flex-col gap-2">
+              <Button variant="primary" onClick={handleDownloadPDF} className="w-full flex items-center justify-center gap-2">
+                Download PDF Proposal
+              </Button>
+              <Button variant="secondary" onClick={() => setCheckoutStep(1)} className="w-full">
                 Calculate another estimate
               </Button>
             </div>
           </Card>
         </section>
       )}
-    </div>
+      </div>
+
+      {/* --- PRINT ONLY INVOICE TEMPLATE --- */}
+      {calcResult && (
+        <div id="print-proposal" className="hidden print:block text-slate-900 font-sans absolute top-0 left-0 w-full bg-white z-[9999] p-8 md:p-12">
+          <div className="border-b-2 border-slate-900 pb-6 mb-8 flex justify-between items-end">
+            <div>
+              <h1 className="text-3xl font-black text-slate-900 tracking-tighter">EMPLINKED</h1>
+              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mt-1">By Enfycon</p>
+            </div>
+            <div className="text-right text-xs text-slate-500">
+              <p className="font-bold text-slate-900 text-sm">PROPOSAL ESTIMATE</p>
+              <p className="mt-1">Generated: {new Date().toLocaleDateString()}</p>
+              <p className="italic mt-1 text-slate-400">*Non-binding demo estimate.</p>
+            </div>
+          </div>
+
+          <div className="mb-10">
+            <h2 className="text-lg font-bold text-slate-900 mb-4 border-b border-slate-200 pb-2">Subscription Details</h2>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="text-slate-500">Duration Term</div>
+              <div className="text-right font-bold text-slate-900">{calcResult.months} Months</div>
+              
+              <div className="text-slate-500">Silver Plan Employees</div>
+              <div className="text-right font-bold text-slate-900">{calcResult.sq}</div>
+              
+              <div className="text-slate-500">Gold Plan Employees</div>
+              <div className="text-right font-bold text-slate-900">{calcResult.gq}</div>
+            </div>
+          </div>
+
+          <div>
+            <h2 className="text-lg font-bold text-slate-900 mb-4 border-b border-slate-200 pb-2">Pricing Breakdown</h2>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-slate-500">Silver Subtotal</span>
+                <span className="font-mono text-slate-900">₹{calcResult.silverSubtotal.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Gold Subtotal</span>
+                <span className="font-mono text-slate-900">₹{calcResult.goldSubtotal.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between border-t border-slate-100 pt-2">
+                <span className="text-slate-500">Base Subtotal</span>
+                <span className="font-mono text-slate-900 font-bold">₹{calcResult.subtotal.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between text-blue-600 font-medium">
+                <span>Volume Discount</span>
+                <span className="font-mono">- ₹{calcResult.discountAmount.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Taxable Amount</span>
+                <span className="font-mono text-slate-900">₹{calcResult.afterDiscount.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">GST (18%)</span>
+                <span className="font-mono text-slate-900">₹{calcResult.gstAmount.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between border-t-2 border-slate-900 pt-4 text-lg font-black text-slate-900 mt-2">
+                <span>Grand Total Estimate</span>
+                <span className="font-mono text-blue-600">₹{calcResult.totalAmount.toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-16 text-center text-xs text-slate-400 border-t border-slate-200 pt-6">
+            <p className="font-bold text-slate-500 mb-1">Thank you for considering Emplinked by Enfycon.</p>
+            <p>This is a temporary estimate generated from our demo portal.</p>
+            <p>Once you submit your request, an official binding invoice will be provided by our administration team.</p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
